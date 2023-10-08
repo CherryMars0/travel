@@ -1,8 +1,8 @@
 <template>
     <div class="loginContainer">
-        <p class="loginTitle">Login</p>
-        <div class="login">
-            <form class="loginForm animate__animated animate__fadeInLeft" action="/user/login" method="post">
+        <p class="loginTitle animate__animated animate__fadeInLeft">Login</p>
+        <div class="login animate__animated animate__fadeInLeft">
+            <form class="loginForm" onsubmit="return false">
                 <div class="inputBox">
                     <p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -11,7 +11,7 @@
                                 d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                         </svg>
                     </p>
-                    <input v-model="userName" type="text" name="userName" placeholder="userName" />
+                    <input v-model="userName" type="text" placeholder="userName" />
                 </div>
                 <div class="inputBox">
                     <p>
@@ -22,7 +22,7 @@
                             <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                         </svg>
                     </p>
-                    <input v-model="userPassword" type="password" name="userPassword" placeholder="password" />
+                    <input v-model="userPassword" type="password" placeholder="password" />
                 </div>
                 <div class="inputBox">
                     <p>
@@ -34,15 +34,15 @@
                                 d="M6 5a1 1 0 0 1 1-1h1.188a2.75 2.75 0 0 1 0 5.5H7v2a.5.5 0 0 1-1 0V5zm1 3.5h1.188a1.75 1.75 0 1 0 0-3.5H7v3.5z" />
                         </svg>
                     </p>
-                    <input id="Captcha" v-model="verify" type="text" name="Captcha" placeholder="Captcha" />
+                    <input v-model="verifyInput" type="text" placeholder="Captcha" />
                 </div>
                 <div class="inputCaptcha">
-                    <p>Captcha verify(点击更换):</p>
-                    <div id="code" @click="createRandCode()">{{ verifyCode }}</div>
+                    <p>CaptchaVerify(区分大小写):</p>
+                    <div class="code" @click="refleshCode()">{{ verifyCode }}</div>
                 </div>
-                <p class="errorTab" v-show="error">{{ errorTip }}</p>
+                <p class="errorTab" v-show="isError">{{ errorTip }}</p>
             </form>
-            <button class="loginBtn fadeInLeft animated" id="login" @click="login()">登录</button>
+            <button class="loginBtn" @click="login()">登录</button>
             <div class="loginContainer-bottom">
                 <ul>
                     <li><router-link to="/">首页</router-link></li>
@@ -54,48 +54,37 @@
     </div>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useStore } from 'vuex'
+import { ref, onMounted } from 'vue'
+import { loginScript, createRandCode } from "../scripts/login&register"
+
 let store = useStore()
 let verifyCode = ref()
-let verify = ref()
+let verifyInput = ref()
 let userName = ref()
 let userPassword = ref()
-let error = ref(false)
+let isError = ref(false)
 let errorTip = ref("none")
 
 const login = () => {
-    if (verifyCode.value == verify.value) {
-        if (userName.value == "") {
-            error.value = true
-            errorTip.value = "请输入账号"
-        } else if (userPassword.value == "") {
-            error.value = true
-            errorTip.value = "请输入密码"
+    if (verifyCode.value == verifyInput.value) {
+        let isLogin = loginScript.login(userName.value, userPassword.value)
+        if (!isLogin.state) {
+            isError.value = true
+            errorTip.value = isLogin.message
         } else {
-            console.log(userName, userPassword);
+            isError.value = false
+            store.dispatch("login", isLogin)
         }
-
     } else {
-        error.value = true
+        isError.value = true
         errorTip.value = "验证码错误"
     }
 }
-const createRandCode = () => {
-    let chars = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k']
-    let randcode = ""
-    for (let i = 0; i < 4; i++) {
-        let randpos = Math.floor(Math.random() * (chars.length - 1))
-        randcode += chars[randpos]
-    }
-    verifyCode.value = randcode
-}
 
+const refleshCode = () => verifyCode.value = createRandCode()
 const toRegister = () => store.commit("isLoging", true)
-
-onMounted(() => {
-    createRandCode()
-})
+onMounted(() => verifyCode.value = createRandCode())
 
 
 </script>
@@ -103,26 +92,18 @@ onMounted(() => {
 .loginTitle {
     font-size: 32px;
     line-height: 32px;
+    text-align: center;
     font-family: 'Merienda', cursive;
 }
 
 .loginContainer {
+    padding-top: 100px !important;
     width: 300px;
-    height: calc(100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    height: 100%;
     background-color: white;
     opacity: 0.9;
 }
 
-.loginContainer-bottom {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: space-around;
-}
 
 .login {
     width: 100%;
@@ -130,7 +111,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 .inputBox {
@@ -152,6 +132,15 @@ onMounted(() => {
     display: flex;
     align-content: center;
     justify-content: center;
+}
+
+.loginForm {
+    margin-top: 30px !important;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .loginContainer-bottom {
@@ -232,7 +221,7 @@ onMounted(() => {
     font-size: 14px;
 }
 
-#code {
+.code {
     text-align: center;
     width: 60px;
     height: 30px;

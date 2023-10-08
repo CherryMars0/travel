@@ -1,11 +1,7 @@
 const urlGroup = {
 	post: {
-		login: "/employee/login",
-		auth: "/employee/auth",
-		locationDriver: "/employee/locationDriver",
-		signup: "/employee/signup",
-		updateEmployee: "/employee/employeeUpdateById",
-		insertEmployee: "/employee/employeeInsert",
+		login: "/User/login",
+		signup: "/User/signup",
 	},
 	get: {
 		allEmployee: "/employee/allEmployee",

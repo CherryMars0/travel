@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 public class User {
-    private String username;
-    private int id;
+    private String userName;
+    private String id;
     private String password;
-    public User(@JsonProperty("id")int id, @JsonProperty("username")String username, @JsonProperty("password")String password) {
+    public User(String id, @JsonProperty("username")String username, @JsonProperty("password")String password) {
         this.id = id;
-        this.username = username;
+        this.userName = username;
         this.password = password;
     }
 }

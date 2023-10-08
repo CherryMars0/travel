@@ -9,10 +9,13 @@
             <li><router-link to="/ScenicView">景点</router-link></li>
             <li><router-link to="/GuideView">导游预定</router-link></li>
             <li><router-link to="/PlanView">自助规划</router-link></li>
-            <ul class="items">
+            <ul class="items" v-if="!isLogin">
                 <li><router-link to="/UserView">登录</router-link>|</li>
                 <li><router-link to="/UserView">注册</router-link></li>
             </ul>
+            <li v-if="isLogin">
+                <router-link to="/center">{{ userName }}</router-link>
+            </li>
         </ul>
     </div>
 </template>
@@ -22,6 +25,8 @@ import { useStore } from 'vuex'
 import LoadingMy from './Loading-my.vue'
 const store = useStore()
 let address = computed(() => store.state.local.currentLocation)
+let userName = computed(() => store.state.User.userName)
+let isLogin = computed(() => store.state.User.isLoging)
 let loading = () => {
     let flag = address.value.province == "定位中..."
     store.commit("locationLoad", flag)

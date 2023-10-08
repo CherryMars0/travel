@@ -3,6 +3,11 @@ import req from '../axios/requestStatus'
 import { BMPGL } from "../bmp"
 export default createStore({
   state: {
+    views: {
+      User: {
+        login: false
+      }
+    },
     local: {
       currentLocation: {
         country: "",
@@ -13,7 +18,9 @@ export default createStore({
     },
     loading: true,
     User: {
-      isLoging: false
+      isLoging: false,
+      userName: NaN,
+      userId: NaN
     },
 
 
@@ -36,7 +43,12 @@ export default createStore({
       state.loading = payload
     },
     isLoging(state, payload) {
-      state.User.isLoging = payload
+      state.views.User.isLoging = payload
+    },
+    loginSuccess(state,payload){
+      state.User.isLoging = true
+      state.User.userName = payload.userName
+      state.User.userId = payload.id
     },
 
 
@@ -83,32 +95,23 @@ export default createStore({
       })
     },
     login(context, payload) {
-      let { user, router } = payload
-      req.post.login(user).then(res => {
-        if (res.success) {
-          req.post.auth(user).then(res => {
-            localStorage.setItem('token', res.data)
-            localStorage.setItem('userName', user.username)
-            context.commit('auth', res.data)
-            router.push({ name: 'main', params: { auth: res.data } })
-          })
+      let { message } = payload
+      console.log(message);
+      req.post.login(message).then(res => {
+        if(res.success){
+          context.commit("loginSuccess",res.data)
         }
       }).catch(err => {
-        context.commit('error', err)
+        console.log(err);
       })
     },
 
-    signup(context, payload) {
-      let { user, router } = payload
-      req.post.signup(user).then(res => {
-        if (res.success) {
-          localStorage.setItem('token', res.data)
-          localStorage.setItem('userName', user.username)
-          context.commit('auth', res.data)
-          router.push("/main")
-        }
+    register(context, payload) {
+      let { message } = payload
+      req.post.signup(message).then(res => {
+        console.log(res);
       }).catch(err => {
-        context.commit('error', err)
+        console.log(err);
       })
     },
 

@@ -10,7 +10,7 @@ module.exports = defineConfig({
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   chainWebpack: config => {
     config.plugin('html').tap(args => {

@@ -34,7 +34,7 @@ public class UserMapper implements UserDao {
         Optional<User> user = selectUserByName(name);
         List<UserDetails> APPLICATION_USERS = Arrays.asList(
             new org.springframework.security.core.userdetails.User(
-                    user.get().getUsername(),user.get().getPassword(),
+                    user.get().getUserName(),user.get().getPassword(),
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")))
         );
         return APPLICATION_USERS.stream().filter(u -> u.getUsername().equals(name))
@@ -52,11 +52,11 @@ public class UserMapper implements UserDao {
     @Override
     public Optional<User> addUser(User user) {
         final String sql= """
-                insert into User(username,password) value(?,?);
+                insert into User(id,username,password) value(?,?,?);
                 """;
-        int res = jdbcTemplate.update(sql,user.getUsername(),user.getPassword());
+        int res = jdbcTemplate.update(sql,user.getId(),user.getUserName(),user.getPassword());
         if(res > 0){
-            return selectUserByName(user.getUsername());
+            return selectUserByName(user.getUserName());
         }else {
             return Optional.empty();
         }

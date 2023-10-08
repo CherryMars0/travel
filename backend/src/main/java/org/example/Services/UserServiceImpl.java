@@ -20,10 +20,10 @@ public class UserServiceImpl implements UserService{
     }
 
     public ResponseResult Login(User user){
-        Optional<User> userD = userDao.selectUserByName(user.getUsername());
+        Optional<User> userD = userDao.selectUserByName(user.getUserName());
         if (userD.isPresent()){
             if(user.getPassword().equals(userD.get().getPassword())){
-                return ResponseResult.LOGIN_SUCCESS().setData(user);
+                return ResponseResult.LOGIN_SUCCESS().setData(userD);
             }else {
                 return ResponseResult.LOGIN_FAILED().setData("wrong user password!");
             }
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public ResponseResult Signup(User user) {
-        if(selectUserByName(user.getUsername()).isEmpty()){
+        if(selectUserByName(user.getUserName()).isEmpty()){
             return ResponseResult.SUCCESS().setData(userDao.addUser(user));
         }else {
             return ResponseResult.FAILED().setData("user is exist");

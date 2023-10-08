@@ -4,11 +4,17 @@ import ScenicView from '../views/ScenicView.vue'
 import GuideView from '../views/GuideView.vue'
 import PlanView from '../views/PlanView.vue'
 import UserView from "../views/UserView.vue"
+import UserInfo from "../views/UserInfo.vue"
 const routes = [
   {
     path: '/',
     name: 'index',
     component: IndexView
+  },
+  {
+    path: '/center',
+    name: 'centerView',
+    component: UserInfo
   },
   // {
   //   path: '/main',

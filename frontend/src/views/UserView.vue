@@ -1,7 +1,7 @@
 <template>
     <div class="userView">
-        <LoginForm v-show="!isLoging" />
-        <RegisterForm v-show="isLoging" />
+        <LoginForm v-if="!isLoging" />
+        <RegisterForm v-if="isLoging" />
     </div>
 </template>
 <script setup>
@@ -10,7 +10,7 @@ import RegisterForm from '@/components/RegisterForm.vue'
 import { computed } from 'vue'
 import { useStore } from 'vuex'
 let store = useStore()
-let isLoging = computed(() => store.state.User.isLoging)
+let isLoging = computed(() => store.state.views.User.isLoging)
 </script>
 <style scoped lang="sass">
 .userView
