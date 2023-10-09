@@ -2,6 +2,7 @@ const urlGroup = {
 	post: {
 		login: "/User/login",
 		signup: "/User/signup",
+		auth:"/User/auth"
 	},
 	get: {
 		allEmployee: "/employee/allEmployee",

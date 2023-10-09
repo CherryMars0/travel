@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/User")
+@RequestMapping(value = "api/v1/User")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserMapper userMapper;
@@ -22,11 +22,11 @@ public class AuthController {
     public ResponseResult authenticate (@RequestBody AuthRequest authRequest){
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authRequest.getUsername(),
+                        authRequest.getUserName(),
                         authRequest.getPassword()
                 )
         );
-        final UserDetails user = userMapper.authUserByName(authRequest.getUsername());
+        final UserDetails user = userMapper.authUserByName(authRequest.getUserName());
         if(user != null){
             return ResponseResult.SUCCESS().setData(jwtUtils.generateToken(user));
         }else {

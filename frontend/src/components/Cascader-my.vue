@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="cascader">
         <slot></slot>
         <select @change="getCity(chooseProvince)" v-model="chooseProvince">
             <option v-for="(item, index) in provinces" :key="index" :value="item">{{ item }}</option>
@@ -45,3 +45,14 @@ onMounted(() => {
     chooseUrban.value = store.state.local.currentLocation.district
 })
 </script>
+<style scoped lang="sass">
+.cascader
+    width: 100%
+    select
+        margin-left: 10px !important
+        border: none
+        cursor: pointer
+        border: 1px solid rgb(0, 218, 212)
+        border-radius: 5px
+        height: 22px
+</style>

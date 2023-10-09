@@ -65,10 +65,9 @@ let ticks = ["机票", "酒店", "火车票", "度假", "门票", "团购", "自
     line-height: 35px
     text-align: center
     cursor: pointer
+    border-top-left-radius: 5px
+    border-bottom-left-radius: 5px
     transition: all ease-in-out 0.2s
-.tickItems>ul>li:hover
-    background-color: white
-    color: rgb(0, 218, 212)
 
 .tickInfomations
     width: calc( 100% - 80px)

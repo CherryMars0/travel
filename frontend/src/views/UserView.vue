@@ -14,21 +14,9 @@ let isLoging = computed(() => store.state.views.User.isLoging)
 </script>
 <style scoped lang="sass">
 .userView
+    margin-top: 1px !important
     width: 100%
     height: 100%
     position: relative
-    z-index: 1
-
-.userView::after
-    position: absolute
-    width: 100%
-    height: 100%
-    top: 0
-    left: 0
-    content: ""
-    z-index: -1
-    background-image: url("../assets/images/bg.jpg")
-    background-repeat: no-repeat
-    background-size: 200% 200%
-    filter: blur(5px)
+    background-color: rgba(0, 218, 212, 0.1)
 </style>

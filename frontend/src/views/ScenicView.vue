@@ -1,17 +1,17 @@
 <template>
     <div class="scenicView">
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
-        <scenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
+        <ScenicCards />
     </div>
 </template>
 <script setup>
-import scenicCards from "../components/main/scenicCards"
+import ScenicCards from "../components/main/ScenicCards"
 </script>
 <style scoped lang="sass">
 .scenicView

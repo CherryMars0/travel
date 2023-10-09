@@ -65,6 +65,8 @@ const req = {
                 data,
             })
         },
+
+        
         mapGuide(auth, data) {
             return request({
                 url: url.post.locationDriver,

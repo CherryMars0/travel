@@ -1,5 +1,5 @@
 <template>
-    <div class="loginContainer">
+    <div class="loginContainer animate__animated animate__fadeInLeft">
         <p class="loginTitle animate__animated animate__fadeInLeft">Login</p>
         <div class="login animate__animated animate__fadeInLeft">
             <form class="loginForm" onsubmit="return false">
@@ -102,6 +102,7 @@ onMounted(() => verifyCode.value = createRandCode())
     height: 100%;
     background-color: white;
     opacity: 0.9;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
 

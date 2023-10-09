@@ -14,21 +14,16 @@ const routes = [
   {
     path: '/center',
     name: 'centerView',
-    component: UserInfo
+    component: UserInfo,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem('userID') !== null && localStorage.getItem('userName') !== null && localStorage.getItem('token') !== null) {
+        next()  //放行
+      } else {
+        alert('access denied !')
+        next("/UserView")
+      }
+    },
   },
-  // {
-  //   path: '/main',
-  //   name: 'main',
-  //   component: MainView,
-  //   beforeEnter: (to, from, next) => {
-  //     if (localStorage.getItem('token') !== null) {
-  //       next()  //放行
-  //     } else {
-  //       alert('access denied !')
-  //       next("/login")
-  //     }
-  //   },
-  // },
   {
     path: '/GuideView',
     name: 'GuideView',
