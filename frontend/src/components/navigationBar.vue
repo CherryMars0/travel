@@ -12,8 +12,6 @@
                     to="/ScenicView">景点</router-link></li>
             <li :class="router.currentRoute.value.path == '/GuideView' ? 'selected' : 'disSelected'"><router-link
                     to="/GuideView">热门导游</router-link></li>
-            <li :class="router.currentRoute.value.path == '/PlanView' ? 'selected' : 'disSelected'"><router-link
-                    to="/PlanView">自助游</router-link></li>
             <ul v-if="!isLogin" class="userCenter">
                 <li :class="router.currentRoute.value.path == '/UserView' && !isLoginPage ? 'selected' : 'disSelected'">
                     <router-link @click="toLogin" to="/UserView">登录</router-link>
@@ -56,23 +54,29 @@ $navHight: 50px
     background-color: rgba(0, 218, 212, 1)
 
 .disSelected
-    background-color: #fff
+    background-color: rgba(0, 218, 212, 0)
 
 .navigation
     width: 100%
     height: $navHight
     background-color: #fff
     z-index: 9999
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 3px 9px -5px, rgba(0, 0, 0, 0.3) 0px 2px 3px -4px;
+    display: flex
+    align-items: center
+    justify-content: center
+    min-width: 1280px
+
 .navigation ul
     display: flex
     align-items: center
-    justify-content: space-around
+    justify-content: space-between
     height: $navHight
 
 .navigation>ul
-    width: 100%
+    width: 70%
     padding: 10px !important
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 3px 9px -5px, rgba(0, 0, 0, 0.3) 0px 2px 3px -4px;
+   
 
 .navigation>ul>li
     width: 100px

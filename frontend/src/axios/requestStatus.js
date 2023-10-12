@@ -2,36 +2,24 @@ import request from './index.js'
 import url from './url.js'
 const req = {
     get: {
-        allEmployee(auth) {
+        getScenicByCityName(name) {
             return request({
-                url: url.get.allEmployee,
+                url: url.get.getScenicByCityName + "/" + name,
                 method: 'GET',
                 headers: {
                     'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
                 },
             })
         },
-        allLocation(auth) {
+        getScenicById(id) {
             return request({
-                url: url.get.allLocation,
+                url: url.get.getScenicById + "/" + id,
                 method: 'GET',
                 headers: {
                     'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
                 },
             })
-        },
-        deleteEmployee(auth, id) {
-            return request({
-                url: url.get.deleteEmployee + "/" + id,
-                method: 'GET',
-                headers: {
-                    'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
-                },
-            })
-        },
+        }
     },
 
     post: {
@@ -65,8 +53,20 @@ const req = {
                 data,
             })
         },
+        searchPOI(data) {
+            return request({
+                url: url.post.searchPOI,
+                method: 'POST',
+                headers: {
+                    'Content-Type': "application/json",
+                },
+                data,
+            })
+        },
 
-        
+
+
+
         mapGuide(auth, data) {
             return request({
                 url: url.post.locationDriver,
@@ -78,29 +78,7 @@ const req = {
                 data
             })
         },
-        updateEmployee(auth, data) {
-            let { id, employee } = data
-            return request({
-                url: url.post.updateEmployee + "/" + id,
-                method: 'POST',
-                headers: {
-                    'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
-                },
-                data: employee
-            })
-        },
-        insertEmployee(auth, data) {
-            return request({
-                url: url.post.insertEmployee,
-                method: 'POST',
-                headers: {
-                    'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
-                },
-                data
-            })
-        }
+
     },
 }
 export default req

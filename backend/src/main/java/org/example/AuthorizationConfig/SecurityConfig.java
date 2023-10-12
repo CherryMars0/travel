@@ -36,6 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)throws Exception{
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/api/v1/User/**").permitAll()
+                .antMatchers("/api/v1/Scenic/**").permitAll()
                 .anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authenticationProvider(authProvider())

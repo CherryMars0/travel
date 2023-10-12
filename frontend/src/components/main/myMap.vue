@@ -1,13 +1,25 @@
 <template>
     <div class="myMap animate__animated animate__fadeInRightBig" :class="!mapShow ? 'myMapIn' : 'myMapInOut'" id="myMap">
         <div class="mapContainer" v-if="!mapLoading">
-            <baidu-map class="map" :center="{ lng: userPoint.lng, lat: userPoint.lat }" :zoom="zoom" @ready="mapOnload()">
+            <baidu-map :scroll-wheel-zoom="true" class="map" :center="{ lng: centerPoint.lng, lat: centerPoint.lat }"
+                :zoom="zoom" @ready="mapOnload()" @moving="syncCenterAndZoom" @moveend="syncCenterAndZoom"
+                @zoomend="syncCenterAndZoom">
                 <bm-marker :position="{ lng: userPoint.lng, lat: userPoint.lat }" :dragging="false"
-                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }">
-                    <bm-label content="" :offset="{ width: 19, height: 40 }" />
+                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }" @click="pointClick()">
+                    <bm-label content="你的位置" :offset="{ width: 0, height: 40 }" />
                 </bm-marker>
-                <slot></slot>
-                <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT" :offset="{ width: -20, height: 10 }"></bm-navigation>
+                <bm-marker v-for="(point, index) in points" :key="index"
+                    :position="{ lng: point.pointTemplate[0], lat: point.pointTemplate[1] }" :dragging="false"
+                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }" @click="pointClick(point)">
+                    <bm-label :content="point.name" :offset="{ width: 0, height: 40 }" />
+                </bm-marker>
+                <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT" :offset="{ width: -20, height: 10 }" />
+                <div v-if="drivingMode.value">
+                    <bm-driving :start="{ lng: centerPoint.lng, lat: centerPoint.lat }"
+                        :end="{ lng: userPoint.lng, lat: userPoint.lat }" :auto-viewport="true"
+                        policy="BMAP_DRIVING_POLICY_LEAST_DISTANCE">
+                    </bm-driving>
+                </div>
             </baidu-map>
         </div>
         <div class="mapLoading" v-if="mapLoading">
@@ -18,17 +30,30 @@
 </template>
 <script setup>
 import { ref, computed } from "vue"
+import { useRouter } from "vue-router"
 import LoadingMy from '../Loading-my.vue'
 import { useStore } from "vuex"
 const positionImgUrl = require("../../assets/images/location-pin.gif")
+const router = useRouter()
 const store = useStore()
 let mapShow = ref(false)
 
+const centerPoint = computed(() => store.state.map.center)
+const points = computed(() => store.state.map.point)
 const userPoint = computed(() => store.state.local.ln)
 const mapSwitch = () => mapShow.value = !mapShow.value
 const mapLoading = computed(() => store.state.loading)
 const zoom = computed(() => store.state.map.ZOOM)
+const drivingMode = () => computed(() => store.state.map.driving)
 const mapOnload = () => mapShow.value = true
+const syncCenterAndZoom = (e) => store.commit("changeMapZOOM", e.target.getZoom())
+const pointClick = (e) => {
+    if (e !== undefined) {
+        store.commit("changeMapZOOM", 30)
+        router.push("/ScenicView/ScenicInfoView")
+        store.dispatch("getScenicById", e.id)
+    }
+}
 </script>
 <style scoped lang="sass">
 .myMapIn
@@ -52,7 +77,8 @@ const mapOnload = () => mapShow.value = true
     top: calc( 50% - 200px)
     border-radius: 8px
     background-color: #e4e4e4
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+    padding: 5px !important
 
     .mapSwitch
         height: 40px

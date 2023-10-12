@@ -2,12 +2,12 @@ const urlGroup = {
 	post: {
 		login: "/User/login",
 		signup: "/User/signup",
-		auth:"/User/auth"
+		auth: "/User/auth",
+		searchPOI: "/Scenic/searchHotal"
 	},
 	get: {
-		allEmployee: "/employee/allEmployee",
-		allLocation: "/employee/allLocation",
-		deleteEmployee: "/employee/employeeDeleteById",
+		getScenicByCityName: "/Scenic/getScenicByCityName",
+		getScenicById: "Scenic/getScenicById"
 	}
 }
 export default urlGroup

@@ -2,9 +2,9 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import IndexView from '../views/IndexView.vue'
 import ScenicView from '../views/ScenicView.vue'
 import GuideView from '../views/GuideView.vue'
-import PlanView from '../views/PlanView.vue'
 import UserView from "../views/UserView.vue"
 import UserInfo from "../views/UserInfo.vue"
+import ScenicInfoView from "../components/secondaryViews/ScenicInfoView.vue"
 const routes = [
   {
     path: '/',
@@ -30,11 +30,6 @@ const routes = [
     component: GuideView
   },
   {
-    path: '/PlanView',
-    name: 'PlanView',
-    component: PlanView
-  },
-  {
     path: '/ScenicView',
     name: 'ScenicView',
     component: ScenicView
@@ -43,7 +38,12 @@ const routes = [
     path: '/UserView',
     name: 'UserView',
     component: UserView,
-  }
+  },
+  {
+    path: '/ScenicView/ScenicInfoView',
+    name: 'ScenicInfoView',
+    component: ScenicInfoView,
+  },
 ]
 
 const router = createRouter({
