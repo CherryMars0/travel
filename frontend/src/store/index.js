@@ -10,10 +10,19 @@ export default createStore({
       },
       Scenic: {
         CardInfo: {
-          hot:"10000000000"
-
+          hot: "10000000000"
         },
+        scenicInfo: {
+          list: [
+            {
+              content: null
+            }
+          ]
+        }
       },
+      Guide: {
+        GuidesInfo: []
+      }
     },
     map: {
       ZOOM: 30,
@@ -75,15 +84,11 @@ export default createStore({
     changeMapZOOM: (state, payload) => state.map.ZOOM = payload,
     driving: (state, payload) => state.map.driving = payload,
     changeScenicCardInfo: (state, payload) => state.views.Scenic.CardInfo = payload,
+    setScenicInfo: (state, payload) => state.views.Scenic.scenicInfo = payload,
+    setGuides: (state, payload) => state.views.Guide.GuidesInfo = payload,
     changeCenter: (state, payload) => {
       state.map.center.lng = payload.lng
       state.map.center.lat = payload.lat
-    },
-
-
-    distance: (state, payload) => {
-      let { data, employeeId } = payload
-      state.distance[employeeId] = (data)
     },
   },
   actions: {
@@ -113,15 +118,7 @@ export default createStore({
     getScenicByCityName: (context, payload) => req.get.getScenicByCityName(payload),
     getScenicById: (context, payload) => req.get.getScenicById(payload).then(res => context.commit("changeScenicCardInfo", res.data)),
     searchPOI: (context, payload) => req.post.searchPOI(payload),
-
-
-    mapGuide(context, payload) {
-      let { auth, Origin, Target, employeeId } = payload
-      req.post.mapGuide(auth.value, { Origin, Target }).then(res => {
-        context.commit("distance", { data: JSON.parse(res.data).result.routes[0].distance, employeeId })
-      }).catch(err => {
-        alert(err)
-      })
-    }
+    getScenicInfo: (context, payload) => req.get.getScenicInfo(payload).then(res => context.commit("setScenicInfo", JSON.parse(res.data).result)),
+    getGuides: (content) => req.get.getGuides().then(res => content.commit("setGuides", res.data)),
   }
 })

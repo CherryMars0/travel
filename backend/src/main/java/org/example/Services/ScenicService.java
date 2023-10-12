@@ -9,4 +9,6 @@ public interface ScenicService {
     ResponseResult selectScenicById(String id);
 
     ResponseResult searchPOI(String point,String POI,String radius);
+
+    ResponseResult getScenicInfo(String name);
 }

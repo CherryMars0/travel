@@ -3,11 +3,13 @@ const urlGroup = {
 		login: "/User/login",
 		signup: "/User/signup",
 		auth: "/User/auth",
-		searchPOI: "/Scenic/searchHotal"
+		searchPOI: "/Scenic/searchHotal",
 	},
 	get: {
 		getScenicByCityName: "/Scenic/getScenicByCityName",
-		getScenicById: "Scenic/getScenicById"
+		getScenicById: "Scenic/getScenicById",
+		getScenicInfo: "Scenic/getScenicInfo",
+		getGuides: "Scenic/getGuides"
 	}
 }
 export default urlGroup

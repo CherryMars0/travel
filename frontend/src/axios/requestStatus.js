@@ -19,6 +19,24 @@ const req = {
                     'Content-Type': "application/json",
                 },
             })
+        },
+        getScenicInfo(name) {
+            return request({
+                url: url.get.getScenicInfo + "/" + name,
+                method: 'GET',
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            })
+        },
+        getGuides() {
+            return request({
+                url: url.get.getGuides,
+                method: 'GET',
+                headers: {
+                    'Content-Type': "application/x-www-form-urlencoded",
+                },
+            })
         }
     },
 

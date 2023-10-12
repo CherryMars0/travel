@@ -11,8 +11,9 @@
                     <button @click="showallScenics = !showallScenics">{{ showallScenics ? "查看更少景区" : "查看更多景区" }}</button>
                 </div>
                 <div class="allScenics" v-if="showallScenics">
-                    <ul class="moreCityItems" v-for="(city, index) in provinceInfo" :key="index">
-                        <li @click="toOnesCityInfoOnMap(city)">{{ city.name }}</li>
+                    <ul class="moreCityItems">
+                        <li v-for="(city, index) in provinceInfo" :key="index" @click="toOnesCityInfoOnMap(city)">{{
+                            city.name }}</li>
                     </ul>
                 </div>
             </div>
@@ -94,12 +95,50 @@ onMounted(() => store.dispatch("getScenicByCityName", province.value).then(res =
     .cardBlurBottom
         position: absolute
         width: 100%
+        height: 300px
         background-color: #e4e4e4
-        padding: 10px !important
         bottom: 0
         border-bottom-left-radius: 10px
         border-bottom-right-radius: 10px
         transition:  all linear 1s
+
+        .allScenics
+            width: 100%
+            height: 260px
+            background-color: #fff
+            border-radius: 10px
+            padding: 5px !important
+            overflow-y: scroll
+            
+            ul
+                width: 100%
+                height: 100%
+                display: flex
+                flex-wrap: wrap
+                align-items: center
+                justify-content:  space-around
+
+            li
+                width: 80px
+                height: 20px
+                font-size: 14px
+                overflow: hidden
+                text-overflow: ellipsis
+                white-space: nowrap
+                cursor: pointer
+
+        .btns
+            padding: 0 !important
+            width: 100%
+            height: 40px
+            display: flex
+            align-items: center
+            justify-content: space-around
+
+            button
+                border-radius: 5px
+                background-color: #fff
+
     .cardBlurBottomDefault
         height: 40px
 

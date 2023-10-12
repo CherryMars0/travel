@@ -23,9 +23,14 @@
     </div>
 </template>
 <script setup>
-import { toRefs, defineProps, ref } from "vue"
+import { toRefs, defineProps, ref, computed } from "vue"
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 const props = defineProps({ guiderData: Object })
+const store = useStore()
 const { guiderData } = toRefs(props)
+let userInfo = computed(() => store.state.User)
+const router = useRouter()
 const contactGuider = (e) => window.location.href = `tencent://message/?uin=${e.QQ}`
 let showDesc = ref(false)
 const imgSrc = {
@@ -33,8 +38,15 @@ const imgSrc = {
     woman: require("../assets/images/woman.png"),
 }
 const reserveGuider = (e) => {
-    console.log(e)
+    if (!userInfo.value.isLoging) {
+        alert("请先登录，即将跳转到登录页面！")
+        router.push("/UserView")
+    } else {
+        console.log(userInfo.value);
+        console.log(e)
+    }
 }
+
 </script>
 <style scoped lang="sass">
 .guiderCard

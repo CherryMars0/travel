@@ -5,18 +5,18 @@
                 :zoom="zoom" @ready="mapOnload()" @moving="syncCenterAndZoom" @moveend="syncCenterAndZoom"
                 @zoomend="syncCenterAndZoom">
                 <bm-marker :position="{ lng: userPoint.lng, lat: userPoint.lat }" :dragging="false"
-                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }" @click="pointClick()">
+                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }">
                     <bm-label content="你的位置" :offset="{ width: 0, height: 40 }" />
                 </bm-marker>
                 <bm-marker v-for="(point, index) in points" :key="index"
                     :position="{ lng: point.pointTemplate[0], lat: point.pointTemplate[1] }" :dragging="false"
-                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }" @click="pointClick(point)">
+                    :icon="{ url: positionImgUrl, size: { width: 50, height: 50 } }" @click="pointClick(index)">
                     <bm-label :content="point.name" :offset="{ width: 0, height: 40 }" />
                 </bm-marker>
                 <bm-navigation anchor="BMAP_ANCHOR_TOP_RIGHT" :offset="{ width: -20, height: 10 }" />
-                <div v-if="drivingMode.value">
+                <div v-if="drivingMode">
                     <bm-driving :start="{ lng: centerPoint.lng, lat: centerPoint.lat }"
-                        :end="{ lng: userPoint.lng, lat: userPoint.lat }" :auto-viewport="true"
+                        :end="{ lng: userPoint.lng, lat: userPoint.lat }" :auto-viewport="true" :panel="drivingMode"
                         policy="BMAP_DRIVING_POLICY_LEAST_DISTANCE">
                     </bm-driving>
                 </div>
@@ -36,24 +36,27 @@ import { useStore } from "vuex"
 const positionImgUrl = require("../../assets/images/location-pin.gif")
 const router = useRouter()
 const store = useStore()
-let mapShow = ref(false)
-
+const mapShow = ref(false)
+const drivingMode = computed(() => store.state.map.driving)
 const centerPoint = computed(() => store.state.map.center)
 const points = computed(() => store.state.map.point)
 const userPoint = computed(() => store.state.local.ln)
 const mapSwitch = () => mapShow.value = !mapShow.value
 const mapLoading = computed(() => store.state.loading)
 const zoom = computed(() => store.state.map.ZOOM)
-const drivingMode = () => computed(() => store.state.map.driving)
+
+
 const mapOnload = () => mapShow.value = true
 const syncCenterAndZoom = (e) => store.commit("changeMapZOOM", e.target.getZoom())
-const pointClick = (e) => {
-    if (e !== undefined) {
+const pointClick = (index) => {
+    if (points.value[index] !== undefined) {
         store.commit("changeMapZOOM", 30)
         router.push("/ScenicView/ScenicInfoView")
-        store.dispatch("getScenicById", e.id)
+        store.dispatch("getScenicById", points.value[index].id)
+        store.dispatch("getScenicInfo", points.value[index].name)
     }
 }
+
 </script>
 <style scoped lang="sass">
 .myMapIn

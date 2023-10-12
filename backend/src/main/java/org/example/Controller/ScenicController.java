@@ -32,4 +32,9 @@ public class ScenicController {
     public ResponseResult searchHotal(@RequestBody POI poi){
         return  scenicService.searchPOI(poi.getPoint(),poi.getName(),poi.getRadius());
     }
+
+    @GetMapping ("/getScenicInfo/{name}")
+    public ResponseResult getScenicInfo(@PathVariable String name){
+        return  scenicService.getScenicInfo(name);
+    }
 }

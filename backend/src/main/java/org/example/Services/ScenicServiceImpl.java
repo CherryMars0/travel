@@ -49,4 +49,21 @@ public class ScenicServiceImpl implements ScenicService{
         assert response != null;
         return  ResponseResult.SUCCESS().setData(response.body().toString());
     }
+
+    @Override
+    public ResponseResult getScenicInfo(String name) {
+        final String URL = "https://apis.tianapi.com/scenic/index?";
+        final String AK = "48f6892a1e47a74e9187a7d94f7c79d9";
+        URI uri = URI.create(URL + "key=" + AK + "&word=" + name );
+        HttpClient client = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(10)).build();
+        HttpResponse response = null;
+        try {
+            HttpRequest request = HttpRequest.newBuilder().uri(uri).build();
+            response = client.send(request,HttpResponse.BodyHandlers.ofString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        assert response != null;
+        return  ResponseResult.SUCCESS().setData(response.body().toString());
+    }
 }
