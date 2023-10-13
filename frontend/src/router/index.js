@@ -4,12 +4,19 @@ import ScenicView from '../views/ScenicView.vue'
 import GuideView from '../views/GuideView.vue'
 import UserView from "../views/UserView.vue"
 import UserInfo from "../views/UserInfo.vue"
+import AdminView from "../views/AdminView.vue"
 import ScenicInfoView from "../components/secondaryViews/ScenicInfoView.vue"
+import store from "../store/index"
+
 const routes = [
   {
     path: '/',
     name: 'index',
-    component: IndexView
+    component: IndexView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",true)
+      next()
+    },
   },
   {
     path: '/center',
@@ -27,22 +34,47 @@ const routes = [
   {
     path: '/GuideView',
     name: 'GuideView',
-    component: GuideView
+    component: GuideView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",true)
+      next()
+    },
   },
   {
     path: '/ScenicView',
     name: 'ScenicView',
-    component: ScenicView
+    component: ScenicView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",true)
+      next()
+    },
   },
   {
     path: '/UserView',
     name: 'UserView',
     component: UserView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",true)
+      next()
+    },
   },
   {
     path: '/ScenicView/ScenicInfoView',
     name: 'ScenicInfoView',
     component: ScenicInfoView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",true)
+      next()
+    },
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView,
+    beforeEnter: (to, from, next) => {
+      store.commit("navIsShow",false)
+      next()
+    },
   },
 ]
 

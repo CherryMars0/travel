@@ -1,17 +1,18 @@
 <template>
-  <div class="App">
-    <NavigationBar />
+  <div class="App" >
+    <NavigationBar v-if="navigationBar" />
     <myMap />
-    <router-view id="chain" class="animate__animated animate__fadeIn" />
+    <router-view id="chain" :class="navigationBar ? '' : 'newHight'" class="animate__animated animate__fadeIn" />
   </div>
 </template>
 <script setup>
 import NavigationBar from "./components/NavigationBar.vue"
 import { loadScript } from "./bmp.js"
 import myMap from "./components/main/myMap.vue"
-import { onMounted } from "vue"
+import { onMounted, computed } from "vue"
 import { useStore } from 'vuex'
 const store = useStore()
+const navigationBar = computed(() => store.state.views.admin.NavigationBar.isShow)
 
 onMounted(() => {
   loadScript("GrFlDsENnXr41SXSg0eGC4fkmLifBIxA")
@@ -39,6 +40,8 @@ onMounted(() => {
 
 </script>
 <style scoped lang="sass">
+.newHight
+  height: 100vh !important
 #chain
   height: calc( 100vh - 54px)
   width: 100%

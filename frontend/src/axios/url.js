@@ -4,6 +4,7 @@ const urlGroup = {
 		signup: "/User/signup",
 		auth: "/User/auth",
 		searchPOI: "/Scenic/searchHotal",
+		adminLogin: "/Admin/login"
 	},
 	get: {
 		getScenicByCityName: "/Scenic/getScenicByCityName",

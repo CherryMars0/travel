@@ -1,6 +1,5 @@
 package org.example.DAO;
 
-import org.example.entity.Location;
 import org.example.entity.Scenic;
 
 import java.util.List;

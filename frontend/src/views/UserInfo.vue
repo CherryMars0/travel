@@ -1,13 +1,18 @@
 <template>
-    <div>
-        <p>{{ User.userName }}</p>
-        <NewUserForm v-if="JSON.parse(User.newUse)" />
-        <p>您所有的规划</p>
-        <ul>
-            <li @click="logout">
-                <router-link to="/UserView">登出</router-link>
-            s</li>
-        </ul>
+    <div class="userInfoView">
+        <div class="userInfos">
+            <div class="user">
+                <p>{{ User.userName }}</p>
+                <NewUserForm v-if="JSON.parse(User.newUse)" />
+                <p>您所有的规划</p>
+                <ul>
+                    <li @click="logout">
+                        <router-link to="/UserView">登出</router-link>
+                        s
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 <script setup>
@@ -28,4 +33,15 @@ let logout = () => {
     store.state.User.newUse = null
 }
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="sass">
+.userInfoView
+    width: 100%
+    height: 100%
+    padding: 10px !important
+    display: flex
+    justify-content: center
+
+    .userInfos
+        min-width: 1280px
+        height: 100%
+</style>

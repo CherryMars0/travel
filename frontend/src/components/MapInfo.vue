@@ -23,6 +23,8 @@ const checkBox = ref()
 const points = ref([])
 let driving
 
+
+
 const auth = computed(() => {
     return store.state.user.auth
 })

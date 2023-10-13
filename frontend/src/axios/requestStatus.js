@@ -81,22 +81,16 @@ const req = {
                 data,
             })
         },
-
-
-
-
-        mapGuide(auth, data) {
+        adminLogin(data) {
             return request({
-                url: url.post.locationDriver,
+                url: url.post.adminLogin,
                 method: 'POST',
                 headers: {
                     'Content-Type': "application/json",
-                    'Authorization': "Bearer " + auth,
                 },
-                data
+                data,
             })
-        },
-
+        }
     },
 }
 export default req

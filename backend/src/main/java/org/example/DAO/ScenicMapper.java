@@ -1,8 +1,6 @@
 package org.example.DAO;
 
-import org.example.DAO.rowMapper.LocationRowMapper;
 import org.example.DAO.rowMapper.ScenicRowMapper;
-import org.example.entity.Location;
 import org.example.entity.Scenic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

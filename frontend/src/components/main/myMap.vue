@@ -1,5 +1,5 @@
 <template>
-    <div class="myMap animate__animated animate__fadeInRightBig" :class="!mapShow ? 'myMapIn' : 'myMapInOut'" id="myMap">
+    <div v-if="adminMode" class="myMap animate__animated animate__fadeInRightBig" :class="!mapShow ? 'myMapIn' : 'myMapInOut'" id="myMap">
         <div class="mapContainer" v-if="!mapLoading">
             <baidu-map :scroll-wheel-zoom="true" class="map" :center="{ lng: centerPoint.lng, lat: centerPoint.lat }"
                 :zoom="zoom" @ready="mapOnload()" @moving="syncCenterAndZoom" @moveend="syncCenterAndZoom"
@@ -45,7 +45,7 @@ const mapSwitch = () => mapShow.value = !mapShow.value
 const mapLoading = computed(() => store.state.loading)
 const zoom = computed(() => store.state.map.ZOOM)
 
-
+const adminMode = computed(() => store.state.views.admin.NavigationBar.isShow)
 const mapOnload = () => mapShow.value = true
 const syncCenterAndZoom = (e) => store.commit("changeMapZOOM", e.target.getZoom())
 const pointClick = (index) => {

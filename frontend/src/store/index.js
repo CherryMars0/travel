@@ -22,7 +22,15 @@ export default createStore({
       },
       Guide: {
         GuidesInfo: []
-      }
+      },
+      admin: {
+        NavigationBar: {
+          isShow: true
+        }
+      },
+    },
+    admin: {
+      isLoging: false
     },
     map: {
       ZOOM: 30,
@@ -86,6 +94,8 @@ export default createStore({
     changeScenicCardInfo: (state, payload) => state.views.Scenic.CardInfo = payload,
     setScenicInfo: (state, payload) => state.views.Scenic.scenicInfo = payload,
     setGuides: (state, payload) => state.views.Guide.GuidesInfo = payload,
+    navIsShow: (state, payload) => state.views.admin.NavigationBar.isShow = payload,
+    adminState: (state, payload) => state.admin.isLoging = payload,
     changeCenter: (state, payload) => {
       state.map.center.lng = payload.lng
       state.map.center.lat = payload.lat
@@ -120,5 +130,10 @@ export default createStore({
     searchPOI: (context, payload) => req.post.searchPOI(payload),
     getScenicInfo: (context, payload) => req.get.getScenicInfo(payload).then(res => context.commit("setScenicInfo", JSON.parse(res.data).result)),
     getGuides: (content) => req.get.getGuides().then(res => content.commit("setGuides", res.data)),
+    adminLogin: (context, payload) => req.post.adminLogin(payload).then(res => {
+      alert(res.message)
+      localStorage.setItem("adminName", res.data.name)
+      context.commit("adminState", res.success)
+    }).catch(e => alert(e)),
   }
 })

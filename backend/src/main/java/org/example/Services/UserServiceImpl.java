@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService{
         Optional<User> userD = userDao.selectUserByName(user.getUserName());
         if (userD.isPresent()){
             if(user.getPassword().equals(userD.get().getPassword())){
+                userD.stream().findFirst().get().setPassword("******");
                 return ResponseResult.LOGIN_SUCCESS().setData(userD);
             }else {
                 return ResponseResult.LOGIN_FAILED().setData("wrong user password!");
