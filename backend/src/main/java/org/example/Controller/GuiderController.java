@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "api/v1/Scenic")
+@RequestMapping(value = "api/v1/Guide")
 public class GuiderController {
     private GuiderServiceImpl guiderService;
 

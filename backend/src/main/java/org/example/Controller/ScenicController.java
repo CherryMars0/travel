@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.example.Response.ResponseResult;
 import org.example.Services.ScenicServiceImpl;
 import org.example.entity.POI;
-import org.example.entity.Scenic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +35,15 @@ public class ScenicController {
     @GetMapping ("/getScenicInfo/{name}")
     public ResponseResult getScenicInfo(@PathVariable String name){
         return  scenicService.getScenicInfo(name);
+    }
+
+    @GetMapping("/getScenicCount")
+    public ResponseResult getScenicCount(){
+        return  scenicService.ScenicCount();
+    }
+
+    @GetMapping("/selectScenicByCount/{start}/{end}")
+    public ResponseResult selectScenicByCount(@PathVariable String start,@PathVariable String end){
+        return  scenicService.selectScenicByCount(start,end);
     }
 }

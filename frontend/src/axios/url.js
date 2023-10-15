@@ -10,7 +10,9 @@ const urlGroup = {
 		getScenicByCityName: "/Scenic/getScenicByCityName",
 		getScenicById: "Scenic/getScenicById",
 		getScenicInfo: "Scenic/getScenicInfo",
-		getGuides: "Scenic/getGuides"
+		getGuides: "Guide/getGuides",
+		getScenicCount: "Scenic/getScenicCount",
+		getScenicByCount:"Scenic/selectScenicByCount"
 	}
 }
 export default urlGroup

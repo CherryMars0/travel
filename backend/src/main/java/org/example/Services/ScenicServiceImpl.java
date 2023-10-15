@@ -66,4 +66,14 @@ public class ScenicServiceImpl implements ScenicService{
         assert response != null;
         return  ResponseResult.SUCCESS().setData(response.body().toString());
     }
+
+    @Override
+    public ResponseResult ScenicCount() {
+        return ResponseResult.SUCCESS().setData(scenicDao.ScenicCount());
+    }
+
+    @Override
+    public ResponseResult selectScenicByCount(String start, String end) {
+        return ResponseResult.SUCCESS().setData(scenicDao.selectScenicByCount(start, end));
+    }
 }

@@ -3,8 +3,9 @@
         <ul class="items">
             <p class="title">admin:{{ userName }}</p>
             <li @click="scenicInfo" :class="isSelected == 0 ? 'selected' : ''">景区信息管理</li>
-            <li @click="hotalInfo" :class="isSelected == 1 ? 'selected' : ''">酒店信息管理</li>
+            <li @click="hotalInfo" :class="isSelected == 1 ? 'selected' : ''">酒店预定管理</li>
             <li @click="userInfo" :class="isSelected == 2 ? 'selected' : ''">用户信息管理</li>
+            <li @click="guideInfo" :class="isSelected == 3 ? 'selected' : ''">导游信息管理</li>
             <li @click="logout">用户登出</li>
         </ul>
     </div>
@@ -21,12 +22,20 @@ const logout = () => {
 }
 const scenicInfo = () => {
     isSelected.value = 0
+    store.commit("mainView", 0)
 }
 const hotalInfo = () => {
     isSelected.value = 1
+    store.commit("mainView", 1)
 }
 const userInfo = () => {
     isSelected.value = 2
+    store.commit("mainView", 2)
+}
+
+const guideInfo = () => {
+    isSelected.value = 3
+    store.commit("mainView", 3)
 }
 </script>
 <style scoped lang="sass">
@@ -36,7 +45,8 @@ const userInfo = () => {
 .mainSlider
     width: 220px
     height: 100%
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px
+    float: left
 
     .items
         width: 100%

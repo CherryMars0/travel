@@ -23,4 +23,5 @@ onMounted(() => {
     display: flex
     justify-content: center
     align-items: center
+    min-width: 1550px
 </style>

@@ -9,4 +9,8 @@ public interface ScenicDao {
 
     List<Scenic> selectScenicByCityName(String name);
     Optional<Scenic> selectScenicById(String id);
+
+    Integer ScenicCount();
+
+    List<Scenic> selectScenicByCount(String start,String end);
 }

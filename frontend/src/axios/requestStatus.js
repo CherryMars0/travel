@@ -34,6 +34,24 @@ const req = {
                 url: url.get.getGuides,
                 method: 'GET',
                 headers: {
+                    'Content-Type': "application/json",
+                },
+            })
+        },
+        getScenicCount() {
+            return request({
+                url: url.get.getScenicCount,
+                method: 'GET',
+                headers: {
+                    'Content-Type': "application/json",
+                },
+            })
+        },
+        getScenicByCount(start,end) {
+            return request({
+                url: url.get.getScenicByCount + "/" + start + "/" + end,
+                method: 'GET',
+                headers: {
                     'Content-Type': "application/x-www-form-urlencoded",
                 },
             })

@@ -1,7 +1,6 @@
 package org.example.Services;
 
 import org.example.Response.ResponseResult;
-import org.example.entity.Scenic;
 
 public interface ScenicService {
 
@@ -11,4 +10,8 @@ public interface ScenicService {
     ResponseResult searchPOI(String point,String POI,String radius);
 
     ResponseResult getScenicInfo(String name);
+
+    ResponseResult ScenicCount();
+
+    ResponseResult selectScenicByCount(String start,String end);
 }

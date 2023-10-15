@@ -32,4 +32,19 @@ public class ScenicMapper implements ScenicDao {
         """;
         return jdbcTemplate.query(sql,new ScenicRowMapper(),id).stream().findFirst();
     }
+
+    @Override
+    public Integer ScenicCount() {
+        final String sql ="""
+            select count(*) from scenics;    
+        """;
+        return jdbcTemplate.queryForObject(sql,Integer.class);
+    }
+
+    @Override
+    public List<Scenic> selectScenicByCount(String start,String end) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from scenics limit ").append(start).append(",").append(end);
+        return jdbcTemplate.query(sb.toString(),new ScenicRowMapper());
+    }
 }

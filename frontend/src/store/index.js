@@ -24,6 +24,7 @@ export default createStore({
         GuidesInfo: []
       },
       admin: {
+        mainView: 0,
         NavigationBar: {
           isShow: true
         }
@@ -95,6 +96,7 @@ export default createStore({
     setScenicInfo: (state, payload) => state.views.Scenic.scenicInfo = payload,
     setGuides: (state, payload) => state.views.Guide.GuidesInfo = payload,
     navIsShow: (state, payload) => state.views.admin.NavigationBar.isShow = payload,
+    mainView: (state, payload) => state.views.admin.mainView = payload,
     adminState: (state, payload) => state.admin.isLoging = payload,
     changeCenter: (state, payload) => {
       state.map.center.lng = payload.lng
@@ -135,5 +137,7 @@ export default createStore({
       localStorage.setItem("adminName", res.data.name)
       context.commit("adminState", res.success)
     }).catch(e => alert(e)),
+    getScenicCount: () => req.get.getScenicCount(),
+    getScenicByCount: (context, payload) => req.get.getScenicByCount(payload["start"], payload["end"]),
   }
 })
